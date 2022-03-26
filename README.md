@@ -12,6 +12,8 @@ Creating an application for sending and receiving messages, for specific user or
 4. Explain how the application work (how you can run it & use it) .
    by sending a message and send it using the id for each client
 
+note: I struggeled in testing the app, and in check the implementation without the front-end part, I tried to not add it. and I couldn't deploy it
+
 ## UML diagram
 
 ![UML](assets/uml13.png)
