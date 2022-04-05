@@ -10,13 +10,11 @@ Creating an application for sending and receiving messages, for specific user or
    built the app using socket-io, and socket.io/admin-ui (namespace) 
 
 4. Explain how the application work (how you can run it & use it) .
-   by sending a message and send it using the id for each client
-
-note: I struggeled in testing the app, and in check the implementation without the front-end part, I tried to not add it. and I couldn't deploy it
+   by sending a message and send it using the id for each client.
 
 ## UML diagram
 
-![UML](assets/uml13.png)
+![UML](assets//Whiteboard%20(6).png)
 
 **The Pull request:**
-[PR](https://github.com/marah-jaradat/Message-Queues/pull/1)
+[PR](https://github.com/marah-jaradat/Message-Queues/pull/3)
