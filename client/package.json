@@ -1,11 +1,11 @@
 {
-  "name": "client",
+  "name": "script",
   "version": "1.0.0",
   "description": "",
-  "main": "client.js",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node nodemon client.js"
+    "start": "node nodemon snowpack dev"
   },
   "keywords": [],
   "author": "",

@@ -1,62 +1,43 @@
-"use strict";
-
-// const io = require("socket.io")(3000);
 const { instrument } = require("@socket.io/admin-ui");
-const io = require("socket.io")(3000, {
+const io = require("socket.io")(3001, {
   cors: {
-    origin: ["http://localhost:8080", "http://admin.socket.io"],
+    origin: ["http://localhost:8080", "https://admin.socket.io"],
   },
 });
 
 const userIo = io.of("/user");
-
+userIo.on("connection", (socket) => {
+  console.log(
+    "connected to a segment or namespace with username " + socket.username
+  );
+});
 userIo.use((socket, next) => {
   if (socket.handshake.auth.token) {
-    socket.username = getusernameFromToken(socket.handshake.auth.token);
+    socket.username = getUsernameFromToken(socket.handshake.auth.token);
     next();
   } else {
-    next(newError);
+    next(new Error("please send Token"));
   }
 });
-
-userIo.on("connection", (socket) => {
-  console.log("connected to user namespace" + socket.username);
-});
-
-function getusernameFromToken(token) {
+function getUsernameFromToken(token) {
   return token;
 }
-
 io.on("connection", (socket) => {
-  console.log("connected" + socket.id);
+  console.log("connected on id :", socket.id);
   socket.on("send-message", (message, room) => {
     if (room === "") {
-      socket.broadcast.emit("recieved", message);
+      socket.broadcast.emit("recieved-message", message);
     } else {
-      socket.to(room).emit("recieved", message);
+      socket.to(room).emit("recieved-message", message);
     }
-    // console.log(message);
   });
-
-  socket.on("join-room", (room, cb) => {
+  socket.on("join-room", (room, joinedMessageCb) => {
     socket.join(room);
-    cb(`Joined${room}`);
+    joinedMessageCb(`Joined ${room} room`);
   });
-  socket.on("ping", (n) => console.log(n));
+  socket.on("ping", (n) => {
+    console.log(n);
+  });
 });
 
 instrument(io, { auth: false });
-
-// io.on("connection", (socket) => {
-//   //   console.log(socket.id);
-//   const value = process.argv.pop();
-//   socket.emit("send-message", value);
-//     console.log(value);
-//   socket.on("recieve-msg", (value2) => {
-//     console.log(value2);
-//   });
-// });
-
-// console.log("process.argv>>>>", process.argv);
-
-// socket.emit("new-msg", value);
